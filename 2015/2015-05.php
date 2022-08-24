@@ -1005,10 +1005,10 @@ $input = explode("\n", $input);
 $nice = 0;
 foreach ($input as $line) {
     $vowel = 0;
-    $substr = true;
+    $substr = false;
     $double = false;
     if (str_contains($line, "ab") || str_contains($line, "cd") || str_contains($line, "pq") || str_contains($line, "xy")) {
-        $substr = false;
+        $substr = true;
     }
     foreach (str_split($line) as $key2 => $value2) {
         if ($value2 == "a" || $value2 == "e" || $value2 == "i" || $value2 == "o" || $value2 == "u") {
@@ -1018,7 +1018,7 @@ foreach ($input as $line) {
             $double = true;
         }
     }
-    if($vowel >= 3 && $double && $substr) {
+    if ($vowel >= 3 && $double && !$substr) {
         $nice++;
     }
     echo $line . " " . $nice . "\n";
