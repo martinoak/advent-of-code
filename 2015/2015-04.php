@@ -1,5 +1,5 @@
 <?php
-$input = "ckczppom";
+$input = file_get_contents('inputs/2015-04.txt');
 $password = "";
 $i = 0;
 while (strlen($password) < 8) {
