@@ -11,7 +11,11 @@ foreach ($intersects as $intersect) {
     $third = explode('-', $half[1])[0];
     $fourth = explode('-', $half[1])[1];
 
-    if (($third >= $first && $fourth <= $second) || ($first >= $third && $second <= $fourth)) {
+    if (($first <= $third && $second >= $third) ||
+        ($first <= $fourth && $second >= $fourth) ||
+        ($third <= $first && $fourth >= $first) ||
+        ($third <= $second && $fourth >= $second))
+    {
         $counter++;
     }
 }
