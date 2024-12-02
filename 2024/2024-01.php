@@ -9,12 +9,13 @@ foreach (explode("\n", $input) as $line) {
     $right[] = $exploded[1];
 }
 
-sort($left);
-sort($right);
-
-$diff = 0;
+$sum = 0;
+$rightValues = array_count_values($right);
 for ($i = 0; $i < count($left); $i++) {
-    $diff += abs($left[$i] - $right[$i]);
+    if (!isset($rightValues[$left[$i]])) {
+        continue;
+    }
+    $sum += $left[$i] * $rightValues[$left[$i]];
 }
 
-echo $diff;
+echo $sum;
