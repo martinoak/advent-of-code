@@ -16,6 +16,23 @@ foreach (explode("\n", $input) as $line) {
 
 function checkSequence(array $row, int $minOffset, int $maxOffset): bool
 {
+    if (isSafe($row, $minOffset, $maxOffset)) {
+        return true;
+    }
+
+    for ($i = 0; $i < count($row); $i++) {
+        $newRow = $row;
+        array_splice($newRow, $i, 1);
+        if (isSafe($newRow, $minOffset, $maxOffset)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isSafe(array $row, int $minOffset, int $maxOffset): bool
+{
     $previous = null;
     $direction = null;
 
