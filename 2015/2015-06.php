@@ -17,17 +17,17 @@ foreach ($matches[0] as $key => $match) {
         for ($y = $y1; $y <= $y2; $y++) {
             switch ($command) {
                 case 'turn on':
-                    $lights[$x][$y] = 1;
+                    $lights[$x][$y] += 1;
                     break;
                 case 'turn off':
-                    $lights[$x][$y] = 0;
+                    $lights[$x][$y] = max(0, $lights[$x][$y] - 1);
                     break;
                 case 'toggle':
-                    $lights[$x][$y] = $lights[$x][$y] ? 0 : 1;
+                    $lights[$x][$y] += 2;
                     break;
             }
         }
     }
 }
 
-echo array_sum(array_map('array_sum', $lights));
+echo array_sum(array_map('array_sum', $lights)) . PHP_EOL;
