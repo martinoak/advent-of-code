@@ -2,38 +2,23 @@
 
 $input = file_get_contents(__DIR__ . '/inputs/01.txt');
 $position = 50;
-$direction = 0;
 $password = 0;
 
-foreach (explode("\n", $input) as $line) {
-    if (empty($line)) { continue; }
-
+foreach (explode("\n", trim($input)) as $line) {
     $direction = match (substr($line, 0, 1)) {
         'R' => 1,
         'L' => -1,
     };
     $length = (int)substr($line, 1);
-    $position = $position + $length * $direction;
 
-    if ($position < 0) {
-        incrementBy100($position);
-    } elseif ($position > 99) {
-        decrementBy100($position);
+    for ($i = 0; $i < $length; $i++) {
+        $position += $direction;
+
+        if ($position < 0) $position += 100;
+        elseif ($position > 99) $position -= 100;
+
+        if ($position === 0) $password++;
     }
-
-    if ($position === 0) { $password++; }
 }
 
-function incrementBy100(int &$position): void
-{
-    $position = $position + 100;
-    if ($position < 0) { incrementBy100($position); }
-}
-
-function decrementBy100(int &$position): void
-{
-    $position = $position - 100;
-    if ($position > 99) { decrementBy100($position); }
-}
-
-echo ($password) . PHP_EOL;
+echo $password . PHP_EOL;
