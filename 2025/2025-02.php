@@ -16,7 +16,7 @@ foreach ($idRanges as $idRange) {
 
 function isValid(int $integer): bool
 {
-    return preg_match('/^(\d+)(\1)$/', $integer) === 1;
+    return preg_match('/^(.+)\1+$/', $integer) === 1;
 }
 
 echo $sum . PHP_EOL;
