@@ -11,25 +11,26 @@ foreach ($banks as $bank) {
 
 function findHighestJolt(string $bank): int
 {
-    $highest = array_map('intval', str_split(substr($bank, 0, -1)));
-    $max = [0, 0];
-    foreach ($highest as $index => $value) {
-        if ($value > $max[1]) {
-            $max = [$index, $value];
+    $digits = str_split($bank);
+    $toRemove = count($digits) - 12;
+
+    for ($removed = 0; $removed < $toRemove; $removed++) {
+        $removeIndex = -1;
+        for ($i = 0; $i < count($digits) - 1; $i++) {
+            if ($digits[$i] < $digits[$i + 1]) {
+                $removeIndex = $i;
+                break;
+            }
         }
+
+        if ($removeIndex == -1) {
+            $removeIndex = count($digits) - 1;
+        }
+
+        array_splice($digits, $removeIndex, 1);
     }
 
-    $secondHighest = array_map('intval', str_split($bank));
-    $secondMax = 0;
-    foreach ($secondHighest as $index => $value) {
-        if ($index <= $max[0]) {
-            continue;
-        } elseif ($value > $secondMax) {
-            $secondMax = $value;
-        }
-    }
-
-    return $max[1] . $secondMax;
+    return intval(implode('', $digits));
 }
 
 echo $sum . PHP_EOL;
